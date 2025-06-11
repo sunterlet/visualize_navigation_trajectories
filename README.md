@@ -30,8 +30,8 @@ One PNG file per trial is saved in `trajectory_plots/` (or a directory you choos
 ## Installation
 ```bash
 # 1. Clone the repo that contains this README
-$ git clone https://github.com/<USER>/trajectory-visualization.git
-$ cd trajectory-visualization
+$ git clone https://github.com/sunterlet/visualize_navigation_trajectories
+$ cd visualize_navigation_trajectories
 
 # 2. Create & activate a virtual environment (optional but recommended)
 $ python -m venv venv
