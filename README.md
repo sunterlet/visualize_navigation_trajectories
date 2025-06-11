@@ -3,6 +3,8 @@
 ## Overview
 `visualize_trajectories.py` turns raw log files from desktop spatial‑memory experiments into trajectory plots. For every trial the script draws the participant’s path inside the circular arena, colours it by elapsed time, and marks key locations and events such as real and annotated target location, movement onset, and exploration time. The resulting PNG images help us spot systematic navigation patterns, lapses, or biases at a glance.
 
+Data of 4 example participants are avalible in /results_prolific. 
+1 example png file is avalible in /trajectory_plots
 ---
 
 ## Input data
