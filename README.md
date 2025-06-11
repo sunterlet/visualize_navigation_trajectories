@@ -53,7 +53,7 @@ pip install -r requirements.txt  # pandas, numpy, matplotlib
 # ID comes from the folder name segment before “_vw1ezaxd”
 python visualize_trajectories.py \
        --subfolder "286584" \
-       --output-dir "figures"
+       --output-dir "path/to/figs"
 ```
 
 | Argument        | Required | Description |
@@ -64,7 +64,7 @@ python visualize_trajectories.py \
 After execution you should see:
 
 ```
-figures/
+trajectory_plots/
 ├── trajectory_286584_training 1.png
 ├── trajectory_286584_training 2.png
 └── …
