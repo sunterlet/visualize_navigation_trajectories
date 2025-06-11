@@ -1,0 +1,27 @@
+{
+    "start_time": "2025-05-07 19:03:20.754554+00:00",
+    "end_time": "2025-05-07 19:09:16.552912+00:00",
+    "invite_data": {
+        "secret": "je4twlat7de53ew5",
+        "PROLIFIC_PID": "63d79fcd741f9cfb2f87152f",
+        "SESSION_ID": "681badd9b9749ab4a8a437db",
+        "STUDY_ID": "681babc03fabbffcdf069d28",
+        "preview": 0,
+        "token": "vw1ezaxd"
+    },
+    "result_files": [
+        "results.json",
+        "experiment.log",
+        "stream.json",
+        "inputs.json",
+        "data/continuous_log_20250507_190322.csv",
+        "data/discrete_log_20250507_190322.csv"
+    ],
+    "end_status": "graceful",
+    "user_agent": {
+        "platform": "windows",
+        "browser": "chrome",
+        "version": "126.0.0.0",
+        "language": null
+    }
+}
