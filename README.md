@@ -5,6 +5,7 @@
 
 Data of 4 example participants are avalible in /results_prolific. 
 1 example png file is avalible in /trajectory_plots
+
 ---
 
 ## Input data
