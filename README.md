@@ -10,7 +10,7 @@ The script expects the following folder structure:
 
 ```
 results_prolific/
-└── <SUBFOLDER>/                # use the numeric ID before the "_vw1ezaxd" suffix, e.g. "476610"
+└── <SUBFOLDER>/                # e.g. "2025-05-07_19/03/20.476610_vw1ezaxd"
     └── data/
         ├── continuous_log_<…>.csv   # time‑sampled xy positions & events
         └── discrete_log_<…>.csv     # per‑trial summary metrics
