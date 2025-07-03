@@ -99,59 +99,58 @@ def plot_trajectory(trial_data, trial_name, output_dir, discrete_data, participa
 
 def main():
     # Set up argument parser
-    parser = argparse.ArgumentParser(description='Generate trajectory plots for specified participants')
-    parser.add_argument('--participants', nargs='+', help='List of participant IDs to process (optional)')
-    parser.add_argument('--subfolder', required=True,
-                      help='Name of the participant subfolder (e.g., 2025-05-07_22/21/04.286584_vw1ezaxd)')
+    parser = argparse.ArgumentParser(description='Generate trajectory plots for specified participant IDs')
+    parser.add_argument('--subfolder', nargs='+', required=True,
+                      help='List of 6-digit participant IDs (e.g., 476610 017414 863489)')
     parser.add_argument('--output-dir', default='trajectory_plots',
                       help='Output directory for the plots')
     args = parser.parse_args()
 
-    # Construct the full input directory path
     base_dir = '/Users/sunt/PhD/packngo/results_prolific'
-    input_dir = os.path.join(base_dir, args.subfolder, 'data')
-    
-    if not os.path.exists(input_dir):
-        print(f"Error: Input directory not found: {input_dir}")
-        return
 
-    # Create output directory if it doesn't exist
-    os.makedirs(args.output_dir, exist_ok=True)
-    
-    # Find and read the continuous log file
-    continuous_logs = glob.glob(os.path.join(input_dir, 'continuous_log*.csv'))
-    if not continuous_logs:
-        print(f"Error: No continuous log files found in {input_dir}")
-        return
-    log_file = continuous_logs[0]  # Take the first matching file
-    df = pd.read_csv(log_file)
-    
-    # Find and read the discrete log file
-    discrete_logs = glob.glob(os.path.join(input_dir, 'discrete_log*.csv'))
-    if not discrete_logs:
-        print(f"Error: No discrete log files found in {input_dir}")
-        return
-    discrete_file = discrete_logs[0]  # Take the first matching file
-    discrete_data = pd.read_csv(discrete_file)
-    
-    # Filter by participant IDs if specified
-    if args.participants:
-        df = df[df['participant_id'].isin(args.participants)]
-        discrete_data = discrete_data[discrete_data['participant_id'].isin(args.participants)]
-        if df.empty:
-            print(f"No data found for participants: {args.participants}")
-            return
-    
-    # Extract 6-digit participant ID before _vw1ezaxd
-    if match := re.search(r'(\d{6})_vw1ezaxd$', args.subfolder):
-        participant_id = match.group(1)
-    else:
-        participant_id = 'unknown'
-    
-    # Group data by trial
-    for trial_name, trial_data in df.groupby('trial_info'):
-        plot_trajectory(trial_data, trial_name, args.output_dir, discrete_data, participant_id)
-        print(f"Created plot for {trial_name}")
+    for participant_id in args.subfolder:
+        # Search for the subfolder ending with _{ID}_vw1ezaxd
+        found_subfolder = None
+        for root, dirs, files in os.walk(base_dir):
+            for d in dirs:
+                if d.endswith(f'{participant_id}_vw1ezaxd'):
+                    found_subfolder = os.path.relpath(os.path.join(root, d), base_dir)
+                    break
+            if found_subfolder:
+                break
+        if not found_subfolder:
+            print(f"Error: No subfolder found for participant ID {participant_id}")
+            continue
+        input_dir = os.path.join(base_dir, found_subfolder, 'data')
+        if not os.path.exists(input_dir):
+            print(f"Error: Input directory not found: {input_dir}")
+            continue
+
+        # Create output directory if it doesn't exist
+        os.makedirs(args.output_dir, exist_ok=True)
+        
+        # Find and read the continuous log file
+        continuous_logs = glob.glob(os.path.join(input_dir, 'continuous_log*.csv'))
+        if not continuous_logs:
+            print(f"Error: No continuous log files found in {input_dir}")
+            continue
+        log_file = continuous_logs[0]  # Take the first matching file
+        df = pd.read_csv(log_file)
+        
+        # Find and read the discrete log file
+        discrete_logs = glob.glob(os.path.join(input_dir, 'discrete_log*.csv'))
+        if not discrete_logs:
+            print(f"Error: No discrete log files found in {input_dir}")
+            continue
+        discrete_file = discrete_logs[0]  # Take the first matching file
+        discrete_data = pd.read_csv(discrete_file)
+        
+        # Use the participant_id directly
+        
+        # Group data by trial
+        for trial_name, trial_data in df.groupby('trial_info'):
+            plot_trajectory(trial_data, trial_name, args.output_dir, discrete_data, participant_id)
+            print(f"Created plot for {trial_name} in {found_subfolder}")
 
 if __name__ == "__main__":
     main() 
